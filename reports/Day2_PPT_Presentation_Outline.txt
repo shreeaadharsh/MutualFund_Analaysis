@@ -1,0 +1,50 @@
+﻿MUTUAL FUND PORTFOLIO ANALYTICS: DATA CLEANING & DATABASE DESIGN
+Presentation Outline & Speaker Notes
+Author: Shree Aadharsh
+Date: June 30, 2026
+
+--------------------------------------------------------------------------------
+SLIDE 1: Title Slide
+--------------------------------------------------------------------------------
+- Title: Data Cleaning & SQL Star Schema Design
+- Subtitle: Day 2 implementation of ETL pipelines and database architecture
+- Prepared by: Shree Aadharsh
+- Notes: Introduce the goal of the day: building a clean, structured SQL database from 10 raw datasets.
+
+--------------------------------------------------------------------------------
+SLIDE 2: Objectives
+--------------------------------------------------------------------------------
+- Key Objectives:
+  1. Cleanse & validate the daily NAV history, transaction data, and performance metrics.
+  2. Implement a high-performance Star Schema in SQLite.
+  3. Load 94,369 rows of data across 12 tables.
+  4. Write analytical SQL queries to answer critical business questions.
+
+--------------------------------------------------------------------------------
+SLIDE 3: Data Cleaning Strategy (ETL)
+--------------------------------------------------------------------------------
+- Heading: Trailing Clean-Up & Outliers
+- Details:
+  * nav_history: Forward-filled NAV for weekends/holidays, removed duplicates, validated NAV > 0.
+  * investor_transactions: Standardized transaction types (SIP, Lumpsum, Redemption) and KYC status.
+  * scheme_performance: Checked return metrics and verified expense ratios fall within 0.1% to 2.5%.
+  * Added derived columns (Year, Month, Alpha Categories) for quick querying.
+
+--------------------------------------------------------------------------------
+SLIDE 4: SQLite Database Schema (Star Schema)
+--------------------------------------------------------------------------------
+- Heading: Relational Database Architecture
+- Details:
+  * Dimension Tables: dim_fund (scheme specs), dim_date (calendar metrics), dim_investor (demographic details).
+  * Fact Tables: fact_nav (daily valuation), fact_transactions (investor actions), fact_performance (snapshot metrics), fact_aum (bi-annual AUM).
+  * Indexes built on primary keys, state, transaction type, and dates to ensure sub-millisecond query execution.
+
+--------------------------------------------------------------------------------
+SLIDE 5: Loading & Verification Results
+--------------------------------------------------------------------------------
+- Heading: Data Loading Audit
+- Details:
+  * verified 100% row match between processed CSVs and database tables.
+  * Database size: 12.32 MB.
+  * Total rows: 94,369 across 13 tables.
+  * System ready for analytical reporting.

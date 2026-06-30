@@ -1,0 +1,28 @@
+﻿MUTUAL FUND PORTFOLIO ANALYTICS: DATA CLEANING & DATABASE DESIGN
+Demo Video Recording Script & Voiceover Guide
+Author: Shree Aadharsh
+Date: June 30, 2026
+
+Duration: 2 Minutes (Approx.)
+Target Audience: Evaluation Team
+
+--------------------------------------------------------------------------------
+SECTION 1: Intro & ETL Overview (0:00 - 0:40)
+--------------------------------------------------------------------------------
+[Screen: Code Editor showing data_cleaning.py]
+Voiceover:
+"Hello, this is Shree Aadharsh. Today I am demonstrating our Day 2 data cleaning and database loading pipeline. We began by cleaning our raw datasets. Our data_cleaning.py script parses dates, deduplicates rows, handles missing business days for NAV values, and flags transaction anomalies. All cleaned datasets are saved back into the data/processed directory."
+
+--------------------------------------------------------------------------------
+SECTION 2: Star Schema & Database Setup (0:40 - 1:20)
+--------------------------------------------------------------------------------
+[Screen: Code Editor showing schema.sql DDL, then DB Browser for SQLite showing bluestock_mf.db structure]
+Voiceover:
+"Next, we designed a robust star schema. Here is our schema.sql, defining dimension tables like dim_fund, dim_date, and dim_investor, alongside fact tables for transactions and historical NAVs. We executed db_setup.py to build these tables and load our 94,369 rows. You can see the verification check confirms a perfect row count match between our CSVs and SQL tables."
+
+--------------------------------------------------------------------------------
+SECTION 3: Query Execution & Outro (1:20 - 2:00)
+--------------------------------------------------------------------------------
+[Screen: Console output showing SQL query results, then reports/data_dictionary.md]
+Voiceover:
+"Finally, we ran 10 analytical SQL queries, exporting results directly to CSV. Here we see SBI's AUM dominance, monthly NAV averages, and regional transaction volumes. All database details are fully documented in our markdown data dictionary. All code is pushed to our GitHub repository. Thank you!"
