@@ -1,0 +1,28 @@
+﻿MUTUAL FUND PORTFOLIO ANALYTICS: DATA INGESTION & ETL PIPELINE
+Demo Video Recording Script & Voiceover Guide
+Author: Shree Aadharsh
+Date: June 30, 2026
+
+Duration: 2 Minutes (Approx.)
+Target Audience: Evaluation Team
+
+--------------------------------------------------------------------------------
+SECTION 1: Project Structure & Ingestion (0:00 - 0:40)
+--------------------------------------------------------------------------------
+[Screen: Code Editor showing project file tree, then opening data_ingestion.py]
+Voiceover:
+"Hello, this is Shree Aadharsh. Today I am demonstrating Day 1 of our Mutual Fund Analytics platform. We've established a structured workspace containing folders for raw data, processed datasets, notebook analysis, reports, and scripts. I'll run our data_ingestion.py script, which automatically loads our 10 historical mutual fund datasets, maps their column schemas, parses dates, and runs initial data quality checks."
+
+--------------------------------------------------------------------------------
+SECTION 2: Live NAV API Fetching (0:40 - 1:20)
+--------------------------------------------------------------------------------
+[Screen: Running live_nav_fetch.py in console, seeing successful logs for HDFC, SBI, etc.]
+Voiceover:
+"Now, let's look at live_nav_fetch.py. This script connects to the AMFI API at mfapi.in to fetch live daily Net Asset Values for six key mutual fund schemes. It contains retry loops and rate-limiting back-off logic. We see the console displays successful 200 HTTP responses, retrieving thousands of historical NAV entries per scheme and saving them as raw CSV files on the disk."
+
+--------------------------------------------------------------------------------
+SECTION 3: Quality Reports & Wrap-Up (1:20 - 2:00)
+--------------------------------------------------------------------------------
+[Screen: reports/day1_data_quality_summary.md file, then showing GitHub commit history]
+Voiceover:
+"Finally, we perform AMFI code validation. Our pipeline confirms 100% code coverage, meaning every fund in our master list has daily NAV history. We flagged a minor data anomaly in April 2025 regarding a massive spike in SIP registrations, which we've documented in our data quality summary. All code, datasets, and reports are committed and pushed to GitHub. Thank you!"

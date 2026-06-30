@@ -1,0 +1,42 @@
+﻿MUTUAL FUND PORTFOLIO ANALYTICS: DATA INGESTION & ETL PIPELINE
+Presentation Outline & Speaker Notes
+Author: Shree Aadharsh
+Date: June 30, 2026
+
+--------------------------------------------------------------------------------
+SLIDE 1: Title Slide
+--------------------------------------------------------------------------------
+- Title: Data Ingestion & ETL Pipeline
+- Subtitle: Day 1 implementation of automated API ingestion, local dataset parsing, and validation
+- Prepared by: Shree Aadharsh
+- Notes: Introduce the goals of the project: creating a reliable ingestion framework to fetch and clean mutual fund data.
+
+--------------------------------------------------------------------------------
+SLIDE 2: Ingestion & ETL Objectives
+--------------------------------------------------------------------------------
+- Key Objectives:
+  1. Load and parse 10 historical raw datasets containing over 46,000 NAV records.
+  2. Implement an automated script to fetch live NAV data from AMFI (mfapi.in).
+  3. Validate scheme identifiers (AMFI codes) between master tables and time-series NAVs.
+  4. Perform data quality checks (outliers, duplicates, nulls).
+
+--------------------------------------------------------------------------------
+SLIDE 3: Automated Live NAV API Fetching
+--------------------------------------------------------------------------------
+- Heading: API Ingestion Framework
+- Details:
+  * Built live_nav_fetch.py with robust error-handling and back-off retry logic.
+  * Fetched live NAV history for 6 benchmark schemes (HDFC Top 100, SBI Bluechip, ICICI Pru Bluechip, Nippon Large Cap, Axis Bluechip, Kotak Bluechip).
+  * HDFC Top 100 Direct NAV: ₹205.1035 (3,110 daily records, inception to date).
+  * Axis Bluechip Regular NAV: ₹6,217.3124 (3,584 daily records).
+  * Persisted live data locally to data/raw/ directories.
+
+--------------------------------------------------------------------------------
+SLIDE 4: Data Quality & Anomalies Report
+--------------------------------------------------------------------------------
+- Heading: Data Quality Audit
+- Details:
+  * 100% AMFI Code Coverage: Checked that all 40 master schemes had corresponding daily NAV data in nav_history.csv.
+  * Identified missing values in 'yoy_growth_pct' for first-year records (2022) due to baseline calculation constraints.
+  * Detected and flagged a massive retail SIP account registration spike in April 2025 (46 Lakh new accounts vs. 9 Lakh monthly average).
+  * Outputted a structured markdown report detailing these findings.
