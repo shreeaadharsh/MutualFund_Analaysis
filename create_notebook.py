@@ -11,7 +11,7 @@ notebook = {
     "**Project:** Mutual Fund Analytics  \n",
     "**Day:** 3 - Exploratory Data Analysis  \n",
     "**Purpose:** Extract insights from 10 cleaned datasets covering fund performance, NAV trends, investor behavior, and industry growth.  \n",
-    "**Author:** Antigravity Pairing Partner"
+    "**Prepared by:** Shree Aadharsh"
    ]
   },
   {

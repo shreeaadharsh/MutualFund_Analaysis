@@ -1,0 +1,105 @@
+﻿MUTUAL FUND PORTFOLIO ANALYTICS: EXPLORATORY DATA ANALYSIS (EDA)
+Presentation Outline & Speaker Notes
+Author: Shree Aadharsh
+Date: June 30, 2026
+
+--------------------------------------------------------------------------------
+SLIDE 1: Title Slide
+--------------------------------------------------------------------------------
+- Title: Mutual Fund Portfolio Analytics: Exploratory Data Analysis (EDA)
+- Subtitle: Technical presentation of data insights, demographic splits, and market trends (2022 - 2026)
+- Prepared by: Shree Aadharsh
+- Notes: Welcome the audience and state the goal: to analyze historical performance and investor profiles.
+
+--------------------------------------------------------------------------------
+SLIDE 2: Agenda
+--------------------------------------------------------------------------------
+- Topics to Cover:
+  1. NAV Daily Time-Series & Volatility (2022 - 2026)
+  2. Asset Under Management (AUM) Share & Growth
+  3. SIP Inflow and Folio Count Growth Metrics
+  4. Category Inflow Heatmap Dynamics
+  5. Demographic and Geographic Splits
+  6. Return Correlation & Sector Allocation Donut
+
+--------------------------------------------------------------------------------
+SLIDE 3: Daily NAV Time-Series Trend Analysis (2022 - 2026)
+--------------------------------------------------------------------------------
+- Heading: NAV Performance Analysis
+- Visual: Line chart of all 40 schemes (nav_trends.png)
+- Highlights:
+  * 2023 Bull Run: Strong positive momentum from April 2023 to December 2023.
+  * Mid-2024 Correction: Visible pullbacks and range-bound behavior across equity schemes.
+  * Direct vs Regular Plan performance divergence over long horizons.
+
+--------------------------------------------------------------------------------
+SLIDE 4: Asset Under Management (AUM) Share & Growth
+--------------------------------------------------------------------------------
+- Heading: AUM Growth & Competitive Landscape
+- Visual: Grouped bar chart by top AMC per year (aum_growth.png)
+- Highlights:
+  * SBI Mutual Fund maintains clear market leadership, peaking at ₹12.5L Cr by Dec 2025.
+  * Rapid double-digit AUM expansion seen for ICICI Prudential MF and HDFC MF.
+  * Highly consolidated market share, with top 5 AMCs accounting for the majority of industry assets.
+
+--------------------------------------------------------------------------------
+SLIDE 5: Systematic Investment Plan (SIP) Monthly Inflow Growth
+--------------------------------------------------------------------------------
+- Heading: Monthly SIP Inflow Time-Series
+- Visual: Line chart showing SIP monthly collection (sip_inflow_trend.png)
+- Highlights:
+  * Steady, uninterrupted rise in monthly SIP inflows.
+  * Jan 2022 baseline: ₹11,517 Crore.
+  * Dec 2025 peak: Reached an all-time high collection of ₹31,002 Crore.
+  * Reflects strong retail investor trust and systematic capital accumulation.
+
+--------------------------------------------------------------------------------
+SLIDE 6: Category Inflow Heatmap Dynamics
+--------------------------------------------------------------------------------
+- Heading: Heatmap of Category Net Inflows
+- Visual: Months (X-axis) vs categories (Y-axis) color matrix (category_inflows_heatmap.png)
+- Highlights:
+  * Massive inflow intensity in Sectoral/Thematic and Small Cap categories.
+  * Constant net redemption (negative flows) seen in Debt funds as interest rate cycles fluctuated.
+  * Arbitrage and Liquid funds show high volatility month-over-month.
+
+--------------------------------------------------------------------------------
+SLIDE 7: Investor Demographics Analysis
+--------------------------------------------------------------------------------
+- Heading: Investor Age Group, Gender & Ticket Size Distribution
+- Visuals: Age distribution pie chart, Gender split, SIP Amount box plots (age_distribution_pie.png, gender_split_pie.png, sip_amount_by_age_boxplot.png)
+- Highlights:
+  * Age 26-35 bracket is the largest customer segment (39.5% of accounts).
+  * Age 36-45 bracket is the second largest (30.1%).
+  * Monthly SIP values follow a log-normal distribution; older segments (56+) show larger average ticket sizes.
+  * Male (58.4%) vs Female (41.6%) investor split.
+
+--------------------------------------------------------------------------------
+SLIDE 8: Geographic & City Tier Distribution
+--------------------------------------------------------------------------------
+- Heading: Investment Concentration: States and City Tiers
+- Visuals: Bar plot of SIP by State, City tier split pie chart (sip_by_state.png, city_tier_split_pie.png)
+- Highlights:
+  * Top 30 (T30) cities generate 65.9% of overall investment volume.
+  * Beyond 30 (B30) cities represent a significant 34.1%, showing strong retail penetration in smaller towns.
+  * Maharashtra and Uttar Pradesh contribute the largest investment volumes.
+
+--------------------------------------------------------------------------------
+SLIDE 9: Folio Expansion & Industry Milestones
+--------------------------------------------------------------------------------
+- Heading: Growth of Mutual Fund Folios
+- Visual: Multi-line chart tracking total, equity, and debt folios (folio_count_growth.png)
+- Highlights:
+  * Total folios grew from 13.26 Crore (Jan 2022) to 26.12 Crore (Dec 2025).
+  * Crossed the major milestone of 20 Crore folios in March 2024.
+  * Folio growth is driven 100% by equity mutual funds; debt folios remained flat.
+
+--------------------------------------------------------------------------------
+SLIDE 10: Portfolio Sector Weighting & Return Correlation Matrix
+--------------------------------------------------------------------------------
+- Heading: Asset Allocation & Return Co-Movements
+- Visuals: Sector Allocation Donut, Correlation Matrix Heatmap (sector_allocation_donut.png, nav_returns_correlation.png)
+- Highlights:
+  * Aggregate sector allocation is heavily led by Banking and IT.
+  * Daily returns of Large Cap schemes exhibit near-perfect correlation (r > 0.95), suggesting fund performance is heavily index-driven.
+  * Direct Plans consistently outperform regular plans by 1.5% to 2.5% CAGR in returns over 3 years due to lower expense ratios.

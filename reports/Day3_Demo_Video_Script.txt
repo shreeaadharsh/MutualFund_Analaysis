@@ -1,0 +1,58 @@
+﻿MUTUAL FUND PORTFOLIO ANALYTICS: EXPLORATORY DATA ANALYSIS (EDA)
+Demo Video Recording Script & Voiceover Guide
+Author: Shree Aadharsh
+Date: June 30, 2026
+
+Duration: 3 Minutes (Approx.)
+Target Audience: Analytics Evaluation Team / Faculty
+
+--------------------------------------------------------------------------------
+SECTION 1: Introduction (0:00 - 0:30)
+--------------------------------------------------------------------------------
+[Screen: Jupyter Notebook showing title: 'Mutual Fund Analytics - Exploratory Data Analysis']
+[Visual Actions: Slowly scroll down through the introduction text of the notebook.]
+
+Voiceover:
+"Hello everyone, my name is Shree Aadharsh. Today, I am excited to walk you through the Exploratory Data Analysis for our Mutual Fund Analytics platform. Using python libraries like pandas, matplotlib, seaborn, and plotly, we have extracted key insights from our 10 cleaned datasets covering daily NAVs, AUM figures, SIP trends, and investor demographics. Let's look at the implementation."
+
+--------------------------------------------------------------------------------
+SECTION 2: Code Structure & Loading Datasets (0:30 - 1:00)
+--------------------------------------------------------------------------------
+[Screen: Jupyter Notebook showing cell 1 and 2: Imports and df_fund, df_nav, df_sip loading.]
+[Visual Actions: Point to the successfully printed message 'All datasets loaded successfully!'.]
+
+Voiceover:
+"First, we import our main libraries and load our cleaned files from the data/processed directory. These datasets have been cleaned in our previous data quality pipeline, which resolved all issues with data types, nulls, duplicates, and missing holiday periods."
+
+--------------------------------------------------------------------------------
+SECTION 3: NAV Trends & AUM Growth (1:00 - 1:45)
+--------------------------------------------------------------------------------
+[Screen: Jupyter Notebook showing the daily NAV plot and AUM growth bar chart.]
+[Visual Actions: Hover over the green-shaded '2023 Bull Run' and the red-shaded '2024 Market Correction' on the NAV chart.]
+
+Voiceover:
+"Looking at the daily NAV trend of our 40 mutual fund schemes, we've highlighted the 2023 bull run, showing significant price appreciation across equity products, followed by a consolidation phase during the mid-2024 market corrections. 
+
+In our next chart, we analyze the Assets Under Management by fund house. SBI Mutual Fund maintains a clear market dominance, reaching an AUM of ₹12.5 Lakh Crore by the end of 2025."
+
+--------------------------------------------------------------------------------
+SECTION 4: SIP Inflows, Categories & Demographics (1:45 - 2:30)
+--------------------------------------------------------------------------------
+[Screen: Jupyter Notebook showing SIP time-series and demographic pie charts.]
+[Visual Actions: Scroll past the SIP plot showing the annotation of ₹31,002 Crore all-time high, then show the T30/B30 and age pie charts.]
+
+Voiceover:
+"Our SIP inflow analysis reveals a solid trend, growing steadily from ₹11,517 Crore in January 2022 to an all-time peak of ₹31,002 Crore in December 2025. 
+
+For demographics, we see that the age group of 26 to 35 years represents the largest investor count at 39.5%. Interestingly, while T30 cities make up 65.9% of our overall volumes, B30 cities contribute a substantial 34.1%, showing that retail mutual fund penetration is rising rapidly in smaller towns."
+
+--------------------------------------------------------------------------------
+SECTION 5: Portfolio Analysis & Outro (2:30 - 3:00)
+--------------------------------------------------------------------------------
+[Screen: Jupyter Notebook showing the sector donut chart and NAV return correlation matrix.]
+[Visual Actions: Highlight the top sector (Banking) and the high values (0.95+) in the correlation heatmap.]
+
+Voiceover:
+"Lastly, our sector allocation donut chart shows that equity funds are heavily invested in Banking and IT. Our return correlation matrix highlights that Large Cap funds across different AMCs share a daily correlation above 0.95, meaning their movements are highly index-driven. 
+
+All of these scripts, database tables, and reports have been fully version-controlled and pushed to our GitHub repository. Thank you for watching!"
