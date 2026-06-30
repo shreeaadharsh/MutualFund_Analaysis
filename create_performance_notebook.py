@@ -1,0 +1,374 @@
+import os
+import json
+
+notebook = {
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Mutual Fund Performance Analytics\n",
+    "**Project:** Mutual Fund Analytics  \n",
+    "**Day:** 4 - Fund Performance Analytics  \n",
+    "**Purpose:** Quantify the historical performance, risk metrics (Sharpe, Sortino, Beta, Alpha, Drawdown), and track tracking errors for 40 mutual fund schemes vs. market benchmarks.  \n",
+    "**Prepared by:** Shree Aadharsh"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": None,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 1. Import necessary libraries\n",
+    "import os\n",
+    "import numpy as np\n",
+    "import pandas as pd\n",
+    "import matplotlib.pyplot as plt\n",
+    "import seaborn as sns\n",
+    "from scipy.stats import linregress\n",
+    "\n",
+    "# Set seaborn style for clean visualizations\n",
+    "sns.set_theme(style=\"whitegrid\")\n",
+    "plt.rcParams[\"figure.figsize\"] = (12, 6)\n",
+    "plt.rcParams[\"font.size\"] = 11"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": None,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 2. Load cleaned datasets\n",
+    "proc_dir = \"../data/processed\"\n",
+    "df_nav = pd.read_csv(f\"{proc_dir}/nav_history_clean.csv\")\n",
+    "df_fund = pd.read_csv(f\"{proc_dir}/fund_master_clean.csv\")\n",
+    "df_bench = pd.read_csv(f\"{proc_dir}/benchmark_indices_clean.csv\")\n",
+    "\n",
+    "# Parse dates\n",
+    "df_nav['date'] = pd.to_datetime(df_nav['date'])\n",
+    "df_bench['date'] = pd.to_datetime(df_bench['date'])\n",
+    "print(\"All datasets loaded successfully!\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "---  \n",
+    "## 1. Daily Returns Calculation\n",
+    "We calculate daily returns for all 40 schemes using `nav_t / nav_t-1 - 1`. We'll also plot the daily returns distribution to verify that it is normally distributed with high concentration around 0%."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": None,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df_nav_pivot = df_nav.pivot(index='date', columns='amfi_code', values='nav')\n",
+    "df_nav_returns = df_nav_pivot.pct_change()\n",
+    "\n",
+    "# Plot the return distribution of a sample fund (e.g. SBI Bluechip Regular 119551)\n",
+    "plt.figure(figsize=(10, 5))\n",
+    "sns.histplot(df_nav_returns[119551].dropna(), bins=100, kde=True, color='teal')\n",
+    "plt.title('Daily Returns Distribution - SBI Bluechip Fund (Regular Plan)')\n",
+    "plt.xlabel('Daily Return')\n",
+    "plt.ylabel('Frequency')\n",
+    "plt.xlim(-0.04, 0.04)\n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "---  \n",
+    "## 2. CAGR Calculation (1-Year, 3-Year, & Since Inception)\n",
+    "We compute CAGR using the formula:\n",
+    "$$\\text{CAGR} = \\left( \\frac{\\text{NAV}_{\\text{end}}}{\\text{NAV}_{\\text{start}}} \\right)^{\\frac{1}{n}} - 1$$\n",
+    "Since the daily historical data spans 4.4 years (Jan 2022 to May 2026), we will compute:  \n",
+    "1. **1-Year CAGR** (May 2025 - May 2026)  \n",
+    "2. **3-Year CAGR** (May 2023 - May 2026)  \n",
+    "3. **Inception CAGR** (Jan 2022 - May 2026, approx. 4.4 years) as a proxy for the 5-year CAGR requirement."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": None,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "end_date = df_nav_pivot.index.max()\n",
+    "date_1yr = end_date - pd.DateOffset(years=1)\n",
+    "date_3yr = end_date - pd.DateOffset(years=3)\n",
+    "date_start = df_nav_pivot.index.min()\n",
+    "\n",
+    "def get_closest_nav(date_target, df_pivot):\n",
+    "    if date_target in df_pivot.index:\n",
+    "        return df_pivot.loc[date_target]\n",
+    "    idx = df_pivot.index.get_indexer([date_target], method='nearest')[0]\n",
+    "    return df_pivot.iloc[idx]\n",
+    "\n",
+    "nav_end = df_nav_pivot.loc[end_date]\n",
+    "nav_1yr = get_closest_nav(date_1yr, df_nav_pivot)\n",
+    "nav_3yr = get_closest_nav(date_3yr, df_nav_pivot)\n",
+    "nav_start = df_nav_pivot.loc[date_start]\n",
+    "\n",
+    "y_1yr = (end_date - date_1yr).days / 365.25\n",
+    "y_3yr = (end_date - date_3yr).days / 365.25\n",
+    "y_start = (end_date - date_start).days / 365.25\n",
+    "\n",
+    "cagr_1yr = (nav_end / nav_1yr) ** (1.0 / y_1yr) - 1.0\n",
+    "cagr_3yr = (nav_end / nav_3yr) ** (1.0 / y_3yr) - 1.0\n",
+    "cagr_inception = (nav_end / nav_start) ** (1.0 / y_start) - 1.0\n",
+    "\n",
+    "# Create comparison table\n",
+    "df_cagr = pd.DataFrame({\n",
+    "    'Scheme Name': [df_fund[df_fund['amfi_code'] == c]['scheme_name'].values[0] for c in df_nav_pivot.columns],\n",
+    "    '1Yr CAGR (%)': (cagr_1yr * 100).values,\n",
+    "    '3Yr CAGR (%)': (cagr_3yr * 100).values,\n",
+    "    'Inception CAGR (%)': (cagr_inception * 100).values\n",
+    "})\n",
+    "df_cagr.head(10)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "---  \n",
+    "## 3. Sharpe & Sortino Ratios\n",
+    "We calculate the Sharpe and Sortino Ratios.  \n",
+    "- **Sharpe Ratio:** $\\frac{R_p - R_f}{\\sigma_{\\text{annual}}}$  \n",
+    "- **Sortino Ratio:** $\\frac{R_p - R_f}{\\sigma_{\\text{downside}}}$  \n",
+    "- We assume $R_f = 6.5\\%$ (the RBI repo rate proxy)."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": None,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "Rf = 0.065\n",
+    "ratios = []\n",
+    "\n",
+    "for code in df_nav_pivot.columns:\n",
+    "    r_series = df_nav_returns[code].dropna()\n",
+    "    # Sharpe\n",
+    "    rp_annual = r_series.mean() * 252\n",
+    "    std_daily = r_series.std()\n",
+    "    std_annual = std_daily * np.sqrt(252)\n",
+    "    sharpe = (rp_annual - Rf) / std_annual if std_annual > 0 else 0\n",
+    "    \n",
+    "    # Sortino\n",
+    "    downside_returns = r_series[r_series < 0]\n",
+    "    downside_std_daily = np.sqrt(np.mean(downside_returns ** 2)) if len(downside_returns) > 0 else 0\n",
+    "    downside_std_annual = downside_std_daily * np.sqrt(252)\n",
+    "    sortino = (rp_annual - Rf) / downside_std_annual if downside_std_annual > 0 else 0\n",
+    "    \n",
+    "    ratios.append({\n",
+    "        'amfi_code': code,\n",
+    "        'Sharpe Ratio': sharpe,\n",
+    "        'Sortino Ratio': sortino\n",
+    "    })\n",
+    "\n",
+    "df_ratios = pd.DataFrame(ratios)\n",
+    "df_ratios_merge = pd.merge(df_cagr, df_ratios, left_on=df_cagr.index, right_on=df_ratios.index).drop(columns=['key_0'])\n",
+    "df_ratios_merge.head(10)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "---  \n",
+    "## 4. Alpha & Beta Calculation\n",
+    "We regress each mutual fund's excess returns on Nifty 100 returns to compute:  \n",
+    "- **Beta (Market Sensitivity):** Slope of OLS regression.  \n",
+    "- **Alpha (Excess Outperformance):** Annualized intercept (Intercept $\\times 252$)."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": None,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df_bench_pivot = df_bench.pivot(index='date', columns='index_name', values='close_value')\n",
+    "df_bench_returns = df_bench_pivot.pct_change()\n",
+    "\n",
+    "ab_results = []\n",
+    "for code in df_nav_pivot.columns:\n",
+    "    r_series = df_nav_returns[code].dropna()\n",
+    "    df_align = pd.concat([r_series, df_bench_returns['NIFTY100']], axis=1, join='inner').dropna()\n",
+    "    slope, intercept, r_val, p_val, std_err = linregress(df_align['NIFTY100'], df_align[code])\n",
+    "    \n",
+    "    ab_results.append({\n",
+    "        'amfi_code': code,\n",
+    "        'Beta': slope,\n",
+    "        'Alpha (%)': intercept * 252 * 100.0\n("
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": None,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df_ab = pd.DataFrame(ab_results)\n",
+    "df_ab_merge = pd.merge(df_ratios_merge, df_ab, on='amfi_code')\n",
+    "df_ab_merge.head(10)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "---  \n",
+    "## 5. Maximum Drawdown & Date Ranges\n",
+    "Maximum Drawdown measures the worst peak-to-trough drop. We identify the exact dates of the peak and trough of this drawdown period."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": None,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "mdd_results = []\n",
+    "for code in df_nav_pivot.columns:\n",
+    "    nav_series = df_nav_pivot[code].dropna()\n",
+    "    running_max = nav_series.cummax()\n",
+    "    drawdowns = nav_series / running_max - 1.0\n",
+    "    max_dd = drawdowns.min()\n",
+    "    \n",
+    "    trough_idx = drawdowns.idxmin()\n",
+    "    peak_idx = nav_series.loc[:trough_idx].idxmax()\n",
+    "    \n",
+    "    mdd_results.append({\n",
+    "        'amfi_code': code,\n",
+    "        'Max Drawdown (%)': max_dd * 100.0,\n",
+    "        'Peak Date': peak_idx.strftime('%Y-%m-%d'),\n",
+    "        'Trough Date': trough_idx.strftime('%Y-%m-%d')\n",
+    "    })\n",
+    "\n",
+    "df_mdd = pd.DataFrame(mdd_results)\n",
+    "df_perf_final = pd.merge(df_ab_merge, df_mdd, on='amfi_code')\n",
+    "df_perf_final.head(10)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "---  \n",
+    "## 6. Composite Fund Scorecard (0-100)\n",
+    "We create a ranking score (0-100) using percentile ranks across five weighted metrics:\n",
+    "- **30%**: 3Yr CAGR Rank (higher is better)\n",
+    "- **25%**: Sharpe Ratio Rank (higher is better)\n",
+    "- **20%**: Alpha Rank (higher is better)\n",
+    "- **15%**: Expense Ratio Rank (inverse - lower is better)\n",
+    "- **10%**: Max Drawdown Rank (inverse - less negative is better)\n",
+    "\n",
+    "This scorecard will allow us to objectively rank all 40 mutual fund schemes."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": None,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Fetch expense ratios\n",
+    "df_exp = df_fund[['amfi_code', 'expense_ratio_pct']]\n",
+    "df_score = pd.merge(df_perf_final, df_exp, on='amfi_code')\n",
+    "\n",
+    "# Rank metrics as percentiles (0-100)\n",
+    "df_score['rank_return'] = df_score['3Yr CAGR (%)'].rank(pct=True) * 100.0\n",
+    "df_score['rank_sharpe'] = df_score['Sharpe Ratio'].rank(pct=True) * 100.0\n",
+    "df_score['rank_alpha']  = df_score['Alpha (%)'].rank(pct=True) * 100.0\n",
+    "df_score['rank_expense'] = (-df_score['expense_ratio_pct']).rank(pct=True) * 100.0\n",
+    "df_score['rank_drawdown'] = df_score['Max Drawdown (%)'].rank(pct=True) * 100.0\n",
+    "\n",
+    "# Calculate composite score\n",
+    "df_score['Composite Score'] = (\n",
+    "    0.30 * df_score['rank_return'] +\n",
+    "    0.25 * df_score['rank_sharpe'] +\n",
+    "    0.20 * df_score['rank_alpha'] +\n",
+    "    0.15 * df_score['rank_expense'] +\n",
+    "    0.10 * df_score['rank_drawdown']\n",
+    ")\n",
+    "\n",
+    "df_score = df_score.sort_values('Composite Score', ascending=False).reset_index(drop=True)\n",
+    "df_score['Rank'] = df_score.index + 1\n",
+    "df_score[['Rank', 'Scheme Name', 'Composite Score', '3Yr CAGR (%)', 'Sharpe Ratio', 'Alpha (%)', 'expense_ratio_pct', 'Max Drawdown (%)']].head(10)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "---  \n",
+    "## 7. Benchmark Comparison & Tracking Error\n",
+    "We plot the top 5 funds vs. the `NIFTY50` and `NIFTY100` indices over the last 3 years and calculate the annualized Tracking Error vs. the Nifty 100 index."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": None,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "top_5_codes = df_score['amfi_code'].head(5).tolist()\n",
+    "three_yr_start = pd.Timestamp('2023-05-29')\n",
+    "df_nav_3y = df_nav_pivot.loc[three_yr_start:end_date]\n",
+    "df_bench_3y = df_bench_pivot.loc[three_yr_start:end_date]\n",
+    "\n",
+    "# Normalize to base 100\n",
+    "df_nav_norm = (df_nav_3y / df_nav_3y.iloc[0]) * 100.0\n",
+    "df_bench_norm = (df_bench_3y / df_bench_3y.iloc[0]) * 100.0\n",
+    "\n",
+    "plt.figure(figsize=(14, 7))\n",
+    "for code in top_5_codes:\n",
+    "    name = df_fund[df_fund['amfi_code'] == code]['scheme_name'].values[0].split(' - ')[0]\n",
+    "    plt.plot(df_nav_norm.index, df_nav_norm[code], label=name, linewidth=1.5)\n",
+    "\n",
+    "plt.plot(df_bench_norm.index, df_bench_norm['NIFTY50'], label='NIFTY 50 (Benchmark)', color='black', linestyle='--', linewidth=2)\n",
+    "plt.plot(df_bench_norm.index, df_bench_norm['NIFTY100'], label='NIFTY 100 (Benchmark)', color='red', linestyle='-.', linewidth=2)\n",
+    "\n",
+    "plt.title('Top 5 Mutual Funds vs Key Benchmarks - 3-Year Growth (Base 100)')\n",
+    "plt.xlabel('Date')\n",
+    "plt.ylabel('Normalized Value')\n",
+    "plt.legend(loc='upper left')\n",
+    "plt.grid(True, linestyle=':', alpha=0.6)\n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": None,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Calculate Tracking Error\n",
+    "print(\"Annualized Tracking Error vs Nifty 100 (Last 3 Years):\")\n",
+    "for code in top_5_codes:\n",
+    "    name = df_fund[df_fund['amfi_code'] == code]['scheme_name'].values[0]\n",
+    "    f_ret = df_nav_returns.loc[three_yr_start:end_date, code]\n",
+    "    b_ret = df_bench_returns.loc[three_yr_start:end_date, 'NIFTY100']\n",
+    "    df_align = pd.concat([f_ret, b_ret], axis=1).dropna()\n",
+    "    active_return = df_align[code] - df_align['NIFTY100']\n",
+    "    tracking_error = active_return.std() * np.sqrt(252) * 100.0\n",
+    "    print(f\"- {name:<60}: {tracking_error:.2f}%\")"
+   ]
+  }
+ ]
+}
+
+with open("notebooks/Performance_Analytics.ipynb", "w", encoding="utf-8") as f:
+    json.dump(notebook, f, indent=1)
+
+print("Jupyter Notebook created at notebooks/Performance_Analytics.ipynb")
