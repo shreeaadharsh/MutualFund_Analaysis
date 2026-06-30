@@ -1,0 +1,63 @@
+﻿MUTUAL FUND PORTFOLIO ANALYTICS: INTERACTIVE DASHBOARD DEVELOPMENT
+Presentation Outline & Speaker Notes
+Author: Shree Aadharsh
+Date: June 30, 2026
+
+--------------------------------------------------------------------------------
+SLIDE 1: Title Slide
+--------------------------------------------------------------------------------
+- Title: Performance & Trend Dashboard
+- Subtitle: Day 5 implementation of multi-page interactive visualizations, retail investor analysis, and market metrics
+- Prepared by: Shree Aadharsh
+- Notes: Introduce the goals of the day: presenting a complete visual analytics suite built with the Bluestock branding theme.
+
+--------------------------------------------------------------------------------
+SLIDE 2: Dashboard Overview & Pages
+--------------------------------------------------------------------------------
+- Topics to Cover:
+  1. Page 1: Industry Overview & Total AUM Trend (AUM: ₹81.5L Cr, SIP: ₹31K Cr)
+  2. Page 2: Fund Performance Scatter & Scorecard (Risk-Return mapping)
+  3. Page 3: Retail Investor Demographics & State-wise Volumes
+  4. Page 4: SIP Market Trends & Net Inflow Intensity Heatmap
+  5. Bluestock Brand Integration (Dark Theme, slate #0F172A, accent #06B6D4)
+
+--------------------------------------------------------------------------------
+SLIDE 3: Page 1 - Industry Overview
+--------------------------------------------------------------------------------
+- Heading: Mutual Fund Industry Overview
+- Visual: Dashboard_Page1.png
+- Highlights:
+  * Key Performance Indicators: Total AUM at ₹81.5 Lakh Crore, SIP Inflows at ₹31,002 Crore, total folios at 26.12 Crore.
+  * Line chart illustrates robust Industry AUM Growth Trend (2022-2025).
+  * Horizontal bar chart details AUM breakdown by AMC (SBI Mutual Fund leading with ₹12.5L Cr).
+
+--------------------------------------------------------------------------------
+SLIDE 4: Page 2 - Fund Performance
+--------------------------------------------------------------------------------
+- Heading: Fund Risk-Return Performance
+- Visual: Dashboard_Page2.png
+- Highlights:
+  * Risk-Return mapping (Scatter Plot) plotting 3Yr Return (X-Axis) vs. Max Drawdown (Y-Axis). Bubble size represents fund AUM.
+  * Scorecard Table detailing top funds: Rank, Scheme Name, Score, Sharpe, and Expense Ratio.
+  * Side panel simulates slicers for Fund House, Category, and Plan.
+
+--------------------------------------------------------------------------------
+SLIDE 5: Page 3 - Investor Analytics
+--------------------------------------------------------------------------------
+- Heading: Retail Investor Demographics & Behavior
+- Visual: Dashboard_Page3.png
+- Highlights:
+  * Donut chart displays transaction type share (SIP vs. Lumpsum vs. Redemption).
+  * Bar chart evaluates average monthly SIP values across age groups.
+  * Horizontal bar chart ranks states by total investment volumes.
+  * Line chart tracks monthly transaction counts showing strong retail participation.
+
+--------------------------------------------------------------------------------
+SLIDE 6: Page 4 - SIP & Market Trends
+--------------------------------------------------------------------------------
+- Heading: Systematic Investments vs. Benchmark Close
+- Visual: Dashboard_Page4.png
+- Highlights:
+  * Dual-axis chart plots monthly SIP inflows (bars) alongside Nifty 50 close price (line).
+  * Bar chart ranks the top 5 categories by net inflow in 2025.
+  * Grid heatmap represents net inflow intensity (color intensity) across categories and months.

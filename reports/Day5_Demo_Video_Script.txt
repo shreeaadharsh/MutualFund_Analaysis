@@ -1,0 +1,36 @@
+﻿MUTUAL FUND PORTFOLIO ANALYTICS: INTERACTIVE DASHBOARD DEVELOPMENT
+Demo Video Recording Script & Voiceover Guide
+Author: Shree Aadharsh
+Date: June 30, 2026
+
+Duration: 2 Minutes (Approx.)
+Target Audience: Evaluation Team
+
+--------------------------------------------------------------------------------
+SECTION 1: Intro & Overview (0:00 - 0:30)
+--------------------------------------------------------------------------------
+[Screen: Displaying Dashboard.pdf showing Page 1: Industry Overview]
+[Visual Actions: Point out the KPI cards at the top and the AUM line chart.]
+
+Voiceover:
+"Hello, this is Shree Aadharsh. Today, I am demonstrating our completed Mutual Fund Performance Dashboard. Designed with our custom Bluestock slate and navy dark theme, the dashboard provides a complete retail analytics suite. Page one displays our industry metrics: a total AUM of ₹81.5 Lakh Crore, monthly SIP inflows of ₹31,002 Crore, and a total of 26.12 Crore folios. We see a clear, upward trend in total AUM and AMC market share."
+
+--------------------------------------------------------------------------------
+SECTION 2: Fund Performance (0:30 - 1:00)
+--------------------------------------------------------------------------------
+[Screen: Displaying Dashboard.pdf Page 2: Fund Performance]
+[Visual Actions: Focus on the risk-return scatter plot bubbles and the scorecard table below.]
+
+Voiceover:
+"On page two, we focus on fund-level risk and returns. Our scatter plot maps three-year CAGR against maximum drawdown, with bubble sizes representing fund AUM. Below the scatter chart, we integrate our fund scorecard table, ranking all 40 schemes based on return, Sharpe, Alpha, expense ratios, and drawdowns."
+
+--------------------------------------------------------------------------------
+SECTION 3: Investor & Market Trends (1:00 - 2:00)
+--------------------------------------------------------------------------------
+[Screen: Displaying Dashboard.pdf Page 3 and Page 4: Investor Analytics & Market Trends]
+[Visual Actions: Point to the donut chart on Page 3, then scroll to Page 4 showing the dual-axis chart.]
+
+Voiceover:
+"Page three provides demographic breakdowns, detailing transaction splits and regional concentration. On page four, we analyze systematic trends by plotting monthly SIP inflows alongside the Nifty 50 close price, illustrating a strong positive correlation between retail participation and index milestones. 
+
+We've compiled all visual pages into Dashboard.pdf and exported screenshots, accompanied by a detailed Power BI connection guide. All files are fully committed to GitHub. Thank you for watching!"
