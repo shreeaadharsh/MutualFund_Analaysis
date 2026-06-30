@@ -1,0 +1,83 @@
+﻿MUTUAL FUND PORTFOLIO ANALYTICS: PERFORMANCE & RISK ANALYTICS
+Presentation Outline & Speaker Notes
+Author: Shree Aadharsh
+Date: June 30, 2026
+
+--------------------------------------------------------------------------------
+SLIDE 1: Title Slide
+--------------------------------------------------------------------------------
+- Title: Performance & Risk Analytics
+- Subtitle: Day 4 implementation of quantitative returns, risk parameters, and scorecard rankings
+- Prepared by: Shree Aadharsh
+- Notes: Introduce the goals of the day: conducting rigorous return and risk-adjusted analysis across 40 schemes and benchmarks.
+
+--------------------------------------------------------------------------------
+SLIDE 2: Methodology & Metrics Overview
+--------------------------------------------------------------------------------
+- Topics to Cover:
+  1. CAGR calculations (1-Year, 3-Year, & Since Inception)
+  2. Sharpe & Sortino Ratios (Rp - Rf / Volatility)
+  3. Beta and Alpha (using OLS linear regression vs. Nifty 100)
+  4. Maximum Drawdowns & recovery tracking
+  5. Multi-factor Scorecard model & Tracking Error
+
+--------------------------------------------------------------------------------
+SLIDE 3: Annualized Return (CAGR) Comparison
+--------------------------------------------------------------------------------
+- Heading: CAGR Analysis
+- Details:
+  * Calculated returns across 1-year and 3-year periods.
+  * Used 4.4-year inception window (since Jan 2022) to evaluate long-term compounding.
+  * Mirae Asset Large Cap, ICICI Pru Midcap, and Kotak Flexicap lead the 3-year return metrics.
+
+--------------------------------------------------------------------------------
+SLIDE 4: Sharpe & Sortino Ratios (Risk-Adjusted Returns)
+--------------------------------------------------------------------------------
+- Heading: Sharpe & Sortino Ratios
+- Details:
+  * Used RBI repo rate proxy of 6.5% as the Risk-Free Rate.
+  * Sharpe Ratio evaluates return per unit of total risk.
+  * Sortino Ratio evaluates return per unit of downside risk (ignoring positive volatility).
+  * Outperformance seen in Large Cap and Flexicap schemes.
+
+--------------------------------------------------------------------------------
+SLIDE 5: Alpha & Beta (OLS Regression)
+--------------------------------------------------------------------------------
+- Heading: Market Sensitivity & Alpha Generation
+- Details:
+  * Aligned fund daily returns with NIFTY 100 returns.
+  * Run OLS linear regression: Beta is the slope, Alpha is the annualized intercept.
+  * Direct plans display a significant +1.5% to 2.5% annualized Alpha advantage over regular plans solely due to lower expense ratios.
+
+--------------------------------------------------------------------------------
+SLIDE 6: Maximum Drawdowns & Recovery
+--------------------------------------------------------------------------------
+- Heading: Risk & Drawdown Recovery Analysis
+- Details:
+  * Max Drawdown tracks peak-to-trough decline.
+  * Worst drawdown date range identified for all 40 schemes (most occurred during the mid-2024 correction).
+  * Tracked peak dates, trough dates, and recovery dates (noting which funds recovered quickest).
+
+--------------------------------------------------------------------------------
+SLIDE 7: Composite Fund Scorecard Model
+--------------------------------------------------------------------------------
+- Heading: Fund Scorecard Rankings
+- Visual: Snapshot of fund_scorecard.csv
+- Details:
+  * 30% × 3Yr CAGR Rank
+  * 25% × Sharpe Ratio Rank
+  * 20% × Alpha Rank
+  * 15% × Expense Ratio Rank (inverse)
+  * 10% × Max Drawdown Rank (inverse)
+  * Normalized percentile scores (0 to 100) are used to rank all 40 schemes objectively.
+  * Mirae Asset Large Cap Fund (Regular Plan) ranked #1 with a composite score of 86.25.
+
+--------------------------------------------------------------------------------
+SLIDE 8: Top 5 Funds vs Benchmarks (Growth of ₹100)
+--------------------------------------------------------------------------------
+- Heading: 3-Year Growth of ₹100 vs. Nifty 50 & Nifty 100
+- Visual: Line plot (benchmark_comparison.png)
+- Details:
+  * Plotted top 5 scorecard funds vs. NIFTY 50 and NIFTY 100.
+  * Showcases consistent outperformance of top selected funds over index benchmarks.
+  * Calculated annualized Tracking Error vs. Nifty 100 (ranging from 18.73% to 23.25%).

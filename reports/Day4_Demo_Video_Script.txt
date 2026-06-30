@@ -1,0 +1,39 @@
+﻿MUTUAL FUND PORTFOLIO ANALYTICS: PERFORMANCE & RISK ANALYTICS
+Demo Video Recording Script & Voiceover Guide
+Author: Shree Aadharsh
+Date: June 30, 2026
+
+Duration: 2 Minutes (Approx.)
+Target Audience: Evaluation Team
+
+--------------------------------------------------------------------------------
+SECTION 1: Intro & Objective (0:00 - 0:30)
+--------------------------------------------------------------------------------
+[Screen: Jupyter Notebook showing title: 'Mutual Fund Performance Analytics']
+[Visual Actions: Scroll down to show prepared by Shree Aadharsh and the notebook header.]
+
+Voiceover:
+"Hello, this is Shree Aadharsh. Today I am demonstrating our Day 4 quantitative performance and risk analytics pipeline. Our objective is to evaluate all 40 schemes using financial risk-return metrics and build an objective scorecard to find our top-performing funds."
+
+--------------------------------------------------------------------------------
+SECTION 2: CAGR & Risk Ratios (0:30 - 1:00)
+--------------------------------------------------------------------------------
+[Screen: Notebook showing CAGR comparison table and Sharpe/Sortino code cells]
+Voiceover:
+"We started by calculating compound annual growth rates for 1-year, 3-year, and since inception periods. Using a risk-free rate of 6.5%, we then computed Sharpe and Sortino ratios to quantify risk-adjusted returns, measuring outperformance per unit of total and downside risk."
+
+--------------------------------------------------------------------------------
+SECTION 3: Alpha, Beta & Drawdowns (1:00 - 1:30)
+--------------------------------------------------------------------------------
+[Screen: Notebook showing regression slope/intercept code and maximum drawdown output.]
+Voiceover:
+"Next, we conducted OLS linear regressions against the Nifty 100 index to derive Beta and annualized Alpha. We also tracked Maximum Drawdowns, identifying the exact peak, trough, and recovery dates for each fund to see which schemes handled market corrections most effectively."
+
+--------------------------------------------------------------------------------
+SECTION 4: Scorecard & Benchmark Plot (1:30 - 2:00)
+--------------------------------------------------------------------------------
+[Screen: Displaying the top of the fund scorecard table, then showing benchmark_comparison.png]
+Voiceover:
+"Using a weighted percentile ranking model, we constructed our final scorecard. We ranked the funds based on returns, Sharpe, Alpha, expense ratios, and drawdowns. Our top 5 funds are plotted here, demonstrating substantial outperformance against both the Nifty 50 and Nifty 100 indices over a three-year horizon. 
+
+All scripts, datasets, and visualizations are committed and pushed to GitHub. Thank you!"
