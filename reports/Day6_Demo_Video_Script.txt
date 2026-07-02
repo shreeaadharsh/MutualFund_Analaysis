@@ -1,0 +1,41 @@
+﻿MUTUAL FUND PORTFOLIO ANALYTICS: ADVANCED RISK & PORTFOLIO METRICS
+Demo Video Recording Script & Voiceover Guide
+Author: Shree Aadharsh
+Date: July 2, 2026
+
+Duration: 2 Minutes (Approx.)
+Target Audience: Evaluation Team
+
+--------------------------------------------------------------------------------
+SECTION 1: Intro & Tail Risk (0:00 - 0:35)
+--------------------------------------------------------------------------------
+[Screen: Jupyter Notebook showing title: 'Mutual Fund Advanced Analytics & Risk Metrics']
+[Visual Actions: Scroll to Section 1: Historical VaR & CVaR]
+
+Voiceover:
+"Hello, this is Shree Aadharsh. Today, I am demonstrating our Day 6 advanced analytics and tail risk modeling. We've computed 95% historical Value-at-Risk and Conditional VaR metrics for all 40 schemes. Our data shows that daily tail loss expectations are significantly higher in Small Cap funds, reaching up to 2.2% daily, compared to Large Cap products."
+
+--------------------------------------------------------------------------------
+SECTION 2: Rolling Sharpe & Cohorts (0:35 - 1:10)
+--------------------------------------------------------------------------------
+[Screen: Notebook showing rolling_sharpe_chart.png, then cohort analysis table]
+Voiceover:
+"Next, we plot rolling 90-day Sharpe ratios over time for five benchmark funds, demonstrating how risk-adjusted efficiency shifts during bull markets and corrections. 
+
+In our cohort analysis, we grouped investors by their entry year. The 2024 retail cohort is the largest, contributing over ₹349 Crore of total investment volume, with a strong initial preference for index trackers like the UTI Nifty 50 Index Fund."
+
+--------------------------------------------------------------------------------
+SECTION 3: SIP Continuity & Concentration HHI (1:10 - 1:45)
+--------------------------------------------------------------------------------
+[Screen: Notebook showing the SIP status pie chart, then HHI concentration table]
+Voiceover:
+"We also conducted an SIP continuity analysis, calculating consecutive payment intervals for active accounts. Investors with gaps exceeding 35 days are flagged as 'At-Risk' of defaults. 
+
+To analyze portfolio concentration, we calculated the sector Herfindahl-Hirschman Index. Axis Bluechip Regular represents the most concentrated sector portfolio, with an HHI of 2,967, showing heavy weights in financials and technology."
+
+--------------------------------------------------------------------------------
+SECTION 4: Recommender Tool & Outro (1:45 - 2:00)
+--------------------------------------------------------------------------------
+[Screen: Command prompt running 'py recommender.py moderate' and displaying recommended table]
+Voiceover:
+"Finally, we built a standalone CLI recommender tool. Inputting a risk appetite like 'moderate' immediately returns the top three funds from our scorecard. All scripts are fully committed to GitHub. Thank you for watching!"

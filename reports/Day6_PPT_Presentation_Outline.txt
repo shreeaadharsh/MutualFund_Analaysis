@@ -1,0 +1,71 @@
+﻿MUTUAL FUND PORTFOLIO ANALYTICS: ADVANCED RISK & PORTFOLIO METRICS
+Presentation Outline & Speaker Notes
+Author: Shree Aadharsh
+Date: July 2, 2026
+
+--------------------------------------------------------------------------------
+SLIDE 1: Title Slide
+--------------------------------------------------------------------------------
+- Title: Advanced Risk Metrics & Portfolio Analytics
+- Subtitle: Day 6 implementation of VaR/CVaR, rolling Sharpe ratios, cohort analysis, and fund recommendation
+- Prepared by: Shree Aadharsh
+- Notes: Introduce the goals of the day: conducting tail risk modeling and structural portfolio concentration analysis.
+
+--------------------------------------------------------------------------------
+SLIDE 2: Advanced Risk Modeling (VaR & CVaR)
+--------------------------------------------------------------------------------
+- Heading: Value at Risk (VaR) & Conditional VaR (CVaR)
+- Details:
+  * Computed historical 95% VaR representing the maximum daily loss at a 95% confidence level.
+  * Computed CVaR representing average loss on tail days exceeding the VaR boundary.
+  * Small Cap funds display higher tail loss expectations (~2.2% daily VaR) than Large Cap products (~1.3% daily VaR).
+
+--------------------------------------------------------------------------------
+SLIDE 3: Rolling Sharpe Ratio Cycles
+--------------------------------------------------------------------------------
+- Heading: Rolling 90-Day Sharpe Ratio Dynamics
+- Visual: rolling_sharpe_chart.png
+- Details:
+  * Plotted rolling risk-adjusted returns for 5 key Large Cap benchmark funds.
+  * Risk efficiency reached historical highs above 3.5 in the 2023 rally, but retreated below 0.5 in early 2024.
+  * Details how market cycles drive short-term fund efficiency.
+
+--------------------------------------------------------------------------------
+SLIDE 4: Retail Investor Cohort Analytics
+--------------------------------------------------------------------------------
+- Heading: Behavioral Analysis of Investor Cohorts
+- Details:
+  * Segmented database by first transaction year (2024 and 2025 cohorts).
+  * 2024 Cohort: Represented massive retail participation with over ₹349 Crore invested across 4,803 unique accounts.
+  * 2025 Cohort: Average ticket size increased to ₹13,505 showing larger starting capital inputs.
+  * Top scheme preference for the 2024 cohort was UTI Nifty 50 Index Fund.
+
+--------------------------------------------------------------------------------
+SLIDE 5: SIP Continuity & Retention Management
+--------------------------------------------------------------------------------
+- Heading: SIP Continuity Analysis & Default Flagging
+- Details:
+  * Filtered database for investors with 6 or more monthly transactions.
+  * Tracked date gaps between consecutive payments.
+  * Flagged accounts with average intervals exceeding 35 days as "At-Risk" of churn.
+  * Provides target listings for active default correction programs.
+
+--------------------------------------------------------------------------------
+SLIDE 6: Portfolio Concentration (Sector HHI)
+--------------------------------------------------------------------------------
+- Heading: Herfindahl-Hirschman Index (HHI) for Sector Concentration
+- Details:
+  * Sector HHI computed by summing squared percentage sector allocations.
+  * High HHI (>2500) indicates concentrated thematic allocations.
+  * Axis Bluechip Regular led the concentration rankings (HHI of 2,967) with heavy allocations to Banking and IT.
+  * Provides structural risk profiling for active portfolio management.
+
+--------------------------------------------------------------------------------
+SLIDE 7: Standalone Fund Recommender Engine
+--------------------------------------------------------------------------------
+- Heading: Recommender System (recommender.py)
+- Details:
+  * Built a standalone, lightweight CLI tool.
+  * Maps User Risk Preference (Low / Moderate / High) to SEBI risk categories.
+  * Recommends top 3 funds sorted by Sharpe ratio from the scorecard.
+  * Provides simple console table visualization.
