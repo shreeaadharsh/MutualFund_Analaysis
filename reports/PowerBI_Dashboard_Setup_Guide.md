@@ -7,7 +7,7 @@ This document provides step-by-step instructions to recreate the **Mutual Fund P
 ## 1. Import Datasets
 1. Open **Power BI Desktop**.
 2. Click **Get Data** → **Text/CSV**.
-3. Load the following cleaned datasets from `data/processed/`:
+3. Load all 10 cleaned datasets from `data/processed/`:
    - `fund_master_clean.csv` (Rename to `dim_fund`)
    - `investor_transactions_clean.csv` (Rename to `fact_transactions`)
    - `scheme_performance_clean.csv` (Rename to `fact_performance`)
@@ -16,6 +16,8 @@ This document provides step-by-step instructions to recreate the **Mutual Fund P
    - `monthly_sip_inflows_clean.csv` (Rename to `fact_sip_inflows`)
    - `category_inflows_clean.csv` (Rename to `fact_category_inflows`)
    - `industry_folio_count_clean.csv` (Rename to `fact_folio_count`)
+   - `benchmark_indices_clean.csv` (Rename to `fact_benchmark`)
+   - `portfolio_holdings_clean.csv` (Rename to `fact_portfolio_holdings`)
 
 ---
 
@@ -25,7 +27,9 @@ Go to the **Model View** and establish the following relationships (Ensure they 
 1. **`dim_fund[amfi_code]`** (1) ─── (0..*) **`fact_nav[amfi_code]`**
 2. **`dim_fund[amfi_code]`** (1) ─── (0..*) **`fact_transactions[amfi_code]`**
 3. **`dim_fund[amfi_code]`** (1) ─── (1) **`fact_performance[amfi_code]`**
-4. **`fact_transactions[investor_id]`** (0..*) ─── (1) **`dim_investor`** (Create this dimension from transaction data by clicking *New Table* in modeling tab with: `dim_investor = SUMMARIZE(fact_transactions, fact_transactions[investor_id], fact_transactions[age_group], fact_transactions[gender], fact_transactions[state], fact_transactions[city], fact_transactions[city_tier], fact_transactions[annual_income_lakh], fact_transactions[kyc_status])`
+4. **`dim_fund[amfi_code]`** (1) ─── (0..*) **`fact_portfolio_holdings[amfi_code]`**
+5. **`fact_transactions[investor_id]`** (0..*) ─── (1) **`dim_investor`** (Create this dimension from transaction data by clicking *New Table* in modeling tab with: `dim_investor = SUMMARIZE(fact_transactions, fact_transactions[investor_id], fact_transactions[age_group], fact_transactions[gender], fact_transactions[state], fact_transactions[city], fact_transactions[city_tier], fact_transactions[annual_income_lakh], fact_transactions[kyc_status])`)
+6. **`fact_nav[date]`** (0..*) ─── (1) **`fact_benchmark[date]`** (Active relationship for daily comparisons)
 
 ---
 
